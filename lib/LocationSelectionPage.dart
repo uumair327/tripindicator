@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
-import 'LocationSelectionPage.dart';
+import 'RouteDetailsPage.dart';
 
-class CategoryDetailsPage extends StatelessWidget {
+class LocationSelectionPage extends StatelessWidget {
   final String selectedCity;
+  final String selectedCategory;
 
-  const CategoryDetailsPage({
+  const LocationSelectionPage({
     Key? key,
     required this.selectedCity,
+    required this.selectedCategory,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // You can dynamically fetch locations based on the selectedCategory here
+    List<String> locations = getLocationsForCategory(selectedCategory);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('$selectedCity Details'),
+        title: Text('Select $selectedCategory'),
         backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
@@ -33,9 +38,8 @@ class CategoryDetailsPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildStyledButton(context, 'Beaches'),
-                buildStyledButton(context, 'Hill Station'),
-                // ... other buttons
+                for (String location in locations)
+                  buildStyledButton(context, location),
               ],
             ),
           ),
@@ -47,7 +51,7 @@ class CategoryDetailsPage extends StatelessWidget {
   ElevatedButton buildStyledButton(BuildContext context, String label) {
     return ElevatedButton(
       onPressed: () {
-        navigateToLocationSelection(context, label);
+        navigateToRouteDetails(context, label);
       },
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all(const Size(double.infinity, 50)),
@@ -71,15 +75,33 @@ class CategoryDetailsPage extends StatelessWidget {
     );
   }
 
-  void navigateToLocationSelection(BuildContext context, String category) {
+  void navigateToRouteDetails(BuildContext context, String selectedLocation) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LocationSelectionPage(
+        builder: (context) => RouteDetailsPage(
           selectedCity: selectedCity,
-          selectedCategory: category,
+          selectedCategory: selectedCategory,
+          selectedLocation: selectedLocation,
+          defaultSource: 'YourPicnicSpot',
+          defaultDestination: '',
         ),
       ),
     );
+  }
+
+  List<String> getLocationsForCategory(String category) {
+    // Implement logic to fetch locations for the selected category
+    // You can use a database, an API, or any other method to get locations
+    // For simplicity, I'll provide a hardcoded list for demonstration
+    switch (category) {
+      case 'Beaches':
+        return ['Beach 1', 'Beach 2', 'Beach 3'];
+      case 'Hill Station':
+        return ['Hill Station 1', 'Hill Station 2', 'Hill Station 3'];
+      // ... add cases for other categories
+      default:
+        return [];
+    }
   }
 }
