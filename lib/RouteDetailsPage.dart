@@ -1,22 +1,21 @@
-// ignore: duplicate_ignore
-// ignore: file_names
-// ignore_for_file: file_names
-
-import 'package:flutter/material.dart' show AppBar, BuildContext, Column, CrossAxisAlignment, EdgeInsets, ElevatedButton, InputDecoration, Key, Scaffold, SingleChildScrollView, SizedBox, State, StatefulWidget, Text, TextEditingController, TextField, Widget;
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RouteDetailsPage extends StatefulWidget {
   final String defaultSource;
   final String defaultDestination;
+  final String selectedCity;
+  final String selectedCategory;
 
   const RouteDetailsPage({
     Key? key,
     required this.defaultSource,
     required this.defaultDestination,
+    required this.selectedCity,
+    required this.selectedCategory,
   }) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _RouteDetailsPageState createState() => _RouteDetailsPageState();
 }
 
@@ -26,8 +25,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   late TextEditingController destinationController;
   LatLng? sourceLocation;
   LatLng? destinationLocation;
-  
-  get pGooglePlex => null;
 
   @override
   void initState() {
@@ -35,31 +32,28 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
     sourceController = TextEditingController(text: widget.defaultSource);
     destinationController =
         TextEditingController(text: widget.defaultDestination);
-    sourceLocation = const LatLng(
-        37.7749, -122.4194); // Default coordinates for source (San Francisco)
-    destinationLocation = const LatLng(37.7749,
-        -122.4194); // Default coordinates for destination (San Francisco)
+    sourceLocation = const LatLng(37.7749, -122.4194);
+    destinationLocation = const LatLng(37.7749, -122.4194);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Route Details'),
+        title: Text('Route Details'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Text('Selected City: ${widget.selectedCity}'),
+            Text('Selected Category: ${widget.selectedCategory}'),
             TextField(
               controller: sourceController,
               decoration: const InputDecoration(labelText: 'Source'),
               onChanged: (value) {
                 setState(() {
-                  // Update sourceLocation based on user input or selection
-                  // You may use a location picker or another method to set the location
-                  // For simplicity, I'm using default coordinates for San Francisco
                   sourceLocation = const LatLng(37.7749, -122.4194);
                 });
               },
@@ -69,9 +63,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
               decoration: const InputDecoration(labelText: 'Destination'),
               onChanged: (value) {
                 setState(() {
-                  // Update destinationLocation based on user input or selection
-                  // You may use a location picker or another method to set the location
-                  // For simplicity, I'm using default coordinates for San Francisco
                   destinationLocation = const LatLng(37.7749, -122.4194);
                 });
               },
@@ -82,7 +73,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
                 initialCameraPosition: CameraPosition(
-                  target: pGooglePlex,
+                  target: LatLng(37.7749, -122.4194),
                   zoom: 13,
                 ),
                 markers: _createMarkers(),
@@ -118,7 +109,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
     markers.add(Marker(
       markerId: const MarkerId('_currentLocation'),
       icon: BitmapDescriptor.defaultMarker,
-      position: pGooglePlex,
+      position: LatLng(37.7749, -122.4194),
     ));
     return markers;
   }
