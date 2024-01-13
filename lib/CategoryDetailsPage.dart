@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:google_fonts/google_fonts.dart';
 
 class CategoryDetailsPage extends StatefulWidget {
   final String selectedCity;
@@ -51,7 +50,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
             future: categoryDetails,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -60,23 +59,19 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                   children: [
                     Text(
                       'Details for ${widget.selectedCategory} in ${widget.selectedCity}:',
-                      style: GoogleFonts.roboto(
-                        textStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 16.0),
                     Text(
                       snapshot.data!,
-                      style: GoogleFonts.roboto(
-                        textStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.normal,
-                        ),
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ],
@@ -91,17 +86,16 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
 
   Future<String> fetchCategoryDetails() async {
     const apiKey =
-        '4aa6c59cf39a024505a6cc7d81a410c7'; // Replace with your actual API key
-    const apiUrl =
-        'https://example.com/api/category-details'; // Replace with your API endpoint
+        'https://outpost.mapmyindia.com/api/security/oauth/token?grant_type=client_credentials&client_id=96dHZVzsAuvf5wbBfJhiNCAvJQKTv5YcP8wmMNLOMD1buNYOykOg4sqvywNZ21rzGVQGkmpzk580aWvsxvaFkw==&client_secret=lrFxI-iSEg8rCBF28zRZqrFzvMNvqIWPtlJ2OeSfQEfQudKlG__LjpVRRSdVYmNWOARpRCiMW4KauDsCxBkmrIruPjQ61pAs';
+    final apiUrl =
+        'https://atlas.mapmyindia.com/api/places/geocode?address=${widget.selectedCategory}&api_key=$apiKey';
 
-    final response = await http.get(
-      Uri.parse(
-          '$apiUrl?city=${widget.selectedCity}&category=${widget.selectedCategory}&apiKey=$apiKey'),
-    );
+    final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
-      return json.decode(response.body)['details'];
+      final decodedData = json.decode(response.body);
+      final details = decodedData['suggestedLocations'][0]['placeAddress'];
+      return details;
     } else {
       throw Exception('Failed to load category details');
     }
