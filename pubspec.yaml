@@ -37,11 +37,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^1.1.0
   google_fonts: ^6.1.0
+  google_maps_flutter: ^2.5.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_dotenv: ^5.0.3
+  permission_handler: ^12.3.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

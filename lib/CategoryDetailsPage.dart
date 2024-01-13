@@ -1,61 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'RouteDetailsPage.dart'; // Import the RouteDetailsPage
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:geolocator/geolocator.dart';
 
-void main() async {
-  await dotenv.load();
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My App',
-      home: CategoryDetailsPage(
-        selectedCity: 'YourCity',
-        selectedCategory: 'YourCategory',
-      ),
-    );
-  }
-}
-
-class CategoryDetailsPage extends StatefulWidget {
+class CategoryDetailsPage extends StatelessWidget {
   final String selectedCity;
-  final String selectedCategory;
 
-  const CategoryDetailsPage({
-    Key? key,
-    required this.selectedCity,
-    required this.selectedCategory,
-  }) : super(key: key);
-
-  @override
-  _CategoryDetailsPageState createState() => _CategoryDetailsPageState();
-}
-
-class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
-  late Future<String> categoryDetails;
-
-  @override
-  void initState() {
-    super.initState();
-    categoryDetails = fetchCategoryDetails();
-  }
+  const CategoryDetailsPage(
+      {Key? key, required this.selectedCity, required String selectedCategory})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text('${widget.selectedCity} - ${widget.selectedCategory} Details'),
-        backgroundColor: Colors.blue,
+        title: Text('$selectedCity Details'),
+        backgroundColor: Colors.blue, // Use blue color for the app bar
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(16.0),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -63,62 +27,84 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
               colors: [
                 Colors.white,
                 Colors.white,
-              ],
+              ], // Use white gradient for the body
             ),
           ),
-          child: FutureBuilder<String>(
-            future: categoryDetails,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Details for ${widget.selectedCategory} in ${widget.selectedCity}:',
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Text(
-                      snapshot.data!,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                );
-              }
-            },
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildStyledButton(context, 'Beaches'),
+                buildStyledButton(context, 'Hill Station'),
+                buildStyledButton(context, 'Waterfalls'),
+                buildStyledButton(context, 'Monsoon Treks'),
+                buildStyledButton(context, 'Sanctuaries'),
+                buildStyledButton(context, 'Caves'),
+                buildStyledButton(context, 'Jungle'),
+                buildStyledButton(context, 'Safari'),
+                buildStyledButton(context, 'Shrines or temples'),
+                buildStyledButton(context, 'Dams'),
+                buildStyledButton(context, 'Lakes'),
+                buildStyledButton(context, 'Cottages With Pool'),
+                buildStyledButton(context, 'Farmhouse'),
+                buildStyledButton(context, 'Fishing Rivers'),
+                buildStyledButton(context, 'Resorts'),
+                buildStyledButton(context, 'Cities and Villages To Visit'),
+                buildStyledButton(context, 'Western Railway Heritage Gallery'),
+                // Add more buttons for other categories
+                // ...
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Future<String> fetchCategoryDetails() async {
-    final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    final apiKey = dotenv.env['GOOGLE_MAPS_API_KEY'];
-    final apiUrl =
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.longitude}&key=$apiKey';
+  ElevatedButton buildStyledButton(BuildContext context, String label) {
+    return ElevatedButton(
+      onPressed: () {
+        navigateToCategoryPage(context, label);
+      },
+      child: Text(
+        label,
+        style: GoogleFonts.roboto(
+          textStyle: const TextStyle(
+            color: Colors.black,
+            fontSize: 16.0,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(const Size(double.infinity, 50)),
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.hovered)) {
+              return Colors.blue.withOpacity(0.8); // Change color on hover
+            }
+            return Colors.white; // Default color
+          },
+        ),
+      ),
+    );
+  }
 
-    final response = await http.get(Uri.parse(apiUrl));
-
-    if (response.statusCode == 200) {
-      final decodedData = json.decode(response.body);
-      final details = decodedData['results'][0]['formatted_address'];
-      return details;
+  void navigateToCategoryPage(BuildContext context, String category) {
+    if (category == 'YourCategory') {
+      // Example: navigate to RouteDetailsPage with default source and destination
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RouteDetailsPage(
+            defaultSource: 'YourPicnicSpot',
+            defaultDestination: '',
+          ),
+        ),
+      );
     } else {
-      throw Exception('Failed to load category details');
+      // Handle navigation for other categories
+      // ...
     }
   }
 }
