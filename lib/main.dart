@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'CityDetailsPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +13,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/categoryDetails': (context) => const CityDetailsPage(
+              selectedCity: '',
+            ),
+      },
     );
   }
 }
@@ -36,7 +43,8 @@ class _HomePageState extends State<HomePage> {
     // based on destination and current location
     // ...
     setState(() {
-      transportOptions = fetchedOptions!;
+      transportOptions =
+          fetchedOptions ?? []; // Use null-aware operator to avoid null
     });
   }
 
@@ -45,6 +53,13 @@ class _HomePageState extends State<HomePage> {
       selectedCity = city;
       // Call your function to fetch transport options for the selected city
       fetchTransportOptions(city);
+      // Navigate to the CityDetailsPage with the selected city
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CityDetailsPage(selectedCity: selectedCity),
+        ),
+      );
     });
   }
 
@@ -88,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
@@ -115,28 +130,6 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          if (selectedCity.isNotEmpty)
-            Expanded(
-              child: ListView.builder(
-                itemCount: transportOptions.length,
-                itemBuilder: (context, index) {
-                  TransportOption option = transportOptions[index];
-                  return Card(
-                    child: ListTile(
-                      leading: Icon(option.icon),
-                      title: Text(option.name),
-                      subtitle: Text('Estimated Fare: ₹${option.fare}'),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.info),
-                        onPressed: () {
-                          // Show more details about the option
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
         ],
       ),
     );
