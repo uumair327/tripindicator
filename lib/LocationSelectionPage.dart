@@ -99,12 +99,90 @@ class LocationSelectionPage extends StatelessWidget {
     // Assuming you have different locations for each city
     switch (city) {
       case 'Mumbai':
-        switch (category) {
-          case 'Beaches':
-            return ['Juhu', 'Arnala Beach', 'Kelwe- Bordi'];
-          case 'Hill Station':
-            return ['Matheran', 'Lonavala', 'Mahabaleshwar'];
-          // ... add cases for other categories in Mumbai
+        switch (city) {
+          case 'Mumbai':
+            switch (category) {
+              case 'Beaches':
+                return ['Juhu Beach', 'Arnala Beach', 'Kelwe- Bordi'];
+              case 'Hill Station':
+                return ['Matheran', 'Lonavala', 'Mahabaleshwar'];
+              case 'Waterfalls':
+                return [
+                  'Dudhsagar Waterfall',
+                  'Bhivpuri Waterfall',
+                  'Kune Falls'
+                ];
+              case 'Forts':
+                return ['Raigad Fort', 'Pratapgad Fort', 'Sinhagad Fort'];
+              case 'Monsoon Treks':
+                return [
+                  'Rajmachi Trek',
+                  'Kalsubai Trek',
+                  'Harishchandragad Trek'
+                ];
+              case 'Sanctuaries':
+                return [
+                  'Sanjay Gandhi National Park',
+                  'Karnala Bird Sanctuary',
+                  'Tungareshwar Wildlife Sanctuary'
+                ];
+              case 'Caves':
+                return ['Elephanta Caves', 'Kanheri Caves', 'Karla Caves'];
+              case 'Jungle':
+                return [
+                  'Tadoba Andhari Tiger Reserve',
+                  'Nagzira Wildlife Sanctuary',
+                  'Koyna Wildlife Sanctuary'
+                ];
+              case 'Safari':
+                return [
+                  'Tadoba Safari',
+                  'Pench Safari',
+                  'Dajipur Bison Sanctuary Safari'
+                ];
+              case 'Shrines or temples':
+                return [
+                  'Siddhivinayak Temple',
+                  'Mumba Devi Temple',
+                  'Mahalakshmi Temple'
+                ];
+              case 'Dams':
+                return ['Bhatsa Dam', 'Vihar Lake', 'Tansa Lake'];
+              case 'Lakes':
+                return ['Powai Lake', 'Vihar Lake', 'Tulsi Lake'];
+              case 'Cottages With Pool':
+                return [
+                  'Igatpuri Cottages',
+                  'Karjat Cottages',
+                  'Lavasa Cottages'
+                ];
+              case 'Farmhouse':
+                return [
+                  'Karjat Farmhouse',
+                  'Alibaug Farmhouse',
+                  'Igatpuri Farmhouse'
+                ];
+              case 'Fishing Rivers':
+                return ['Bhatsa River', 'Ulhas River', 'Vaitarna River'];
+              case 'Resorts':
+                return [
+                  'Lonavala Resorts',
+                  'Alibaug Resorts',
+                  'Khandala Resorts'
+                ];
+              case 'Cities and Villages To Visit':
+                return ['Elephanta Island', 'Alibaug', 'Khandala'];
+              case 'Western Railway Heritage Gallery':
+                return [
+                  'Heritage Gallery 1',
+                  'Heritage Gallery 2',
+                  'Heritage Gallery 3'
+                ];
+              // ... add cases for other categories in Mumbai
+              default:
+                return [];
+            }
+          // ... add cases for other cities
           default:
             return [];
         }
@@ -118,7 +196,27 @@ class LocationSelectionPage extends StatelessWidget {
           default:
             return [];
         }
-      // ... add cases for other cities
+      case 'Thane':
+        switch (category) {
+          case 'Beaches':
+            return ['Nashik Beach 1', 'Nashik Beach 2', 'Nashik Beach 3'];
+          case 'Hill Station':
+            return ['Nashik Hill 1', 'Nashik Hill 2', 'Nashik Hill 3'];
+          // ... add cases for other categories in Nashik
+          default:
+            return [];
+        }
+      case 'Pune':
+        switch (category) {
+          case 'Beaches':
+            return ['Nashik Beach 1', 'Nashik Beach 2', 'Nashik Beach 3'];
+          case 'Hill Station':
+            return ['Nashik Hill 1', 'Nashik Hill 2', 'Nashik Hill 3'];
+          // ... add cases for other categories in Nashik
+          default:
+            return [];
+        }
+
       default:
         return [];
     }
