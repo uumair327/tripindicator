@@ -15,11 +15,12 @@ class LocationSelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // You can dynamically fetch locations based on the selectedCategory here
-    List<String> locations = getLocationsForCategory(selectedCategory);
+    List<String> locations =
+        getLocationsForCategory(selectedCategory, selectedCity);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select $selectedCategory'),
+        title: Text('Select $selectedCategory in $selectedCity'),
         backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
@@ -90,16 +91,34 @@ class LocationSelectionPage extends StatelessWidget {
     );
   }
 
-  List<String> getLocationsForCategory(String category) {
-    // Implement logic to fetch locations for the selected category
+  List<String> getLocationsForCategory(String category, String city) {
+    // Implement logic to fetch locations for the selected category and city
     // You can use a database, an API, or any other method to get locations
     // For simplicity, I'll provide a hardcoded list for demonstration
-    switch (category) {
-      case 'Beaches':
-        return ['Beach 1', 'Beach 2', 'Beach 3'];
-      case 'Hill Station':
-        return ['Hill Station 1', 'Hill Station 2', 'Hill Station 3'];
-      // ... add cases for other categories
+
+    // Assuming you have different locations for each city
+    switch (city) {
+      case 'Mumbai':
+        switch (category) {
+          case 'Beaches':
+            return ['Juhu', 'Arnala Beach', 'Kelwe- Bordi'];
+          case 'Hill Station':
+            return ['Matheran', 'Lonavala', 'Mahabaleshwar'];
+          // ... add cases for other categories in Mumbai
+          default:
+            return [];
+        }
+      case 'Nashik':
+        switch (category) {
+          case 'Beaches':
+            return ['Nashik Beach 1', 'Nashik Beach 2', 'Nashik Beach 3'];
+          case 'Hill Station':
+            return ['Nashik Hill 1', 'Nashik Hill 2', 'Nashik Hill 3'];
+          // ... add cases for other categories in Nashik
+          default:
+            return [];
+        }
+      // ... add cases for other cities
       default:
         return [];
     }
