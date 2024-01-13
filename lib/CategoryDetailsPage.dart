@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'RouteDetailsPage.dart'; // Import the RouteDetailsPage
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class CategoryDetailsPage extends StatelessWidget {
   final String selectedCity;
 
-  const CategoryDetailsPage(
-      {Key? key, required this.selectedCity, required String selectedCategory})
-      : super(key: key);
+  const CategoryDetailsPage({
+    Key? key,
+    required this.selectedCity,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,20 +60,10 @@ class CategoryDetailsPage extends StatelessWidget {
   }
 
   ElevatedButton buildStyledButton(BuildContext context, String label) {
-    return ElevatedButton(
+    var elevatedButton = ElevatedButton(
       onPressed: () {
         navigateToCategoryPage(context, label);
       },
-      child: Text(
-        label,
-        style: GoogleFonts.roboto(
-          textStyle: const TextStyle(
-            color: Colors.black,
-            fontSize: 16.0,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-      ),
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all(const Size(double.infinity, 50)),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -87,7 +75,16 @@ class CategoryDetailsPage extends StatelessWidget {
           },
         ),
       ),
+      child: Text(
+        label,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 16.0,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
     );
+    return elevatedButton;
   }
 
   void navigateToCategoryPage(BuildContext context, String category) {
@@ -96,7 +93,7 @@ class CategoryDetailsPage extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => RouteDetailsPage(
+          builder: (context) => const RouteDetailsPage(
             defaultSource: 'YourPicnicSpot',
             defaultDestination: '',
           ),

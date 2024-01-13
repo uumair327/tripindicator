@@ -1,4 +1,8 @@
-import 'package:flutter/material.dart';
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: file_names
+
+import 'package:flutter/material.dart' show AppBar, BuildContext, Column, CrossAxisAlignment, EdgeInsets, ElevatedButton, InputDecoration, Key, Scaffold, SingleChildScrollView, SizedBox, State, StatefulWidget, Text, TextEditingController, TextField, Widget;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RouteDetailsPage extends StatefulWidget {
@@ -12,6 +16,7 @@ class RouteDetailsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _RouteDetailsPageState createState() => _RouteDetailsPageState();
 }
 
@@ -21,6 +26,8 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   late TextEditingController destinationController;
   LatLng? sourceLocation;
   LatLng? destinationLocation;
+  
+  get pGooglePlex => null;
 
   @override
   void initState() {
@@ -28,9 +35,9 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
     sourceController = TextEditingController(text: widget.defaultSource);
     destinationController =
         TextEditingController(text: widget.defaultDestination);
-    sourceLocation = LatLng(
+    sourceLocation = const LatLng(
         37.7749, -122.4194); // Default coordinates for source (San Francisco)
-    destinationLocation = LatLng(37.7749,
+    destinationLocation = const LatLng(37.7749,
         -122.4194); // Default coordinates for destination (San Francisco)
   }
 
@@ -38,7 +45,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Route Details'),
+        title: const Text('Route Details'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -47,46 +54,46 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
           children: [
             TextField(
               controller: sourceController,
-              decoration: InputDecoration(labelText: 'Source'),
+              decoration: const InputDecoration(labelText: 'Source'),
               onChanged: (value) {
                 setState(() {
                   // Update sourceLocation based on user input or selection
                   // You may use a location picker or another method to set the location
                   // For simplicity, I'm using default coordinates for San Francisco
-                  sourceLocation = LatLng(37.7749, -122.4194);
+                  sourceLocation = const LatLng(37.7749, -122.4194);
                 });
               },
             ),
             TextField(
               controller: destinationController,
-              decoration: InputDecoration(labelText: 'Destination'),
+              decoration: const InputDecoration(labelText: 'Destination'),
               onChanged: (value) {
                 setState(() {
                   // Update destinationLocation based on user input or selection
                   // You may use a location picker or another method to set the location
                   // For simplicity, I'm using default coordinates for San Francisco
-                  destinationLocation = LatLng(37.7749, -122.4194);
+                  destinationLocation = const LatLng(37.7749, -122.4194);
                 });
               },
             ),
-            SizedBox(height: 16.0),
-            Container(
+            const SizedBox(height: 16.0),
+            SizedBox(
               height: 200.0,
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
                 initialCameraPosition: CameraPosition(
-                  target: sourceLocation!,
-                  zoom: 12.0,
+                  target: pGooglePlex,
+                  zoom: 13,
                 ),
                 markers: _createMarkers(),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 _fetchRoutesAndPrices();
               },
-              child: Text('Get Routes'),
+              child: const Text('Get Routes'),
             ),
           ],
         ),
@@ -97,16 +104,21 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   Set<Marker> _createMarkers() {
     Set<Marker> markers = {};
     markers.add(Marker(
-      markerId: MarkerId('sourceMarker'),
+      markerId: const MarkerId('sourceMarker'),
       position: sourceLocation!,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-      infoWindow: InfoWindow(title: 'Source'),
+      infoWindow: const InfoWindow(title: 'Source'),
     ));
     markers.add(Marker(
-      markerId: MarkerId('destinationMarker'),
+      markerId: const MarkerId('destinationMarker'),
       position: destinationLocation!,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      infoWindow: InfoWindow(title: 'Destination'),
+      infoWindow: const InfoWindow(title: 'Destination'),
+    ));
+    markers.add(Marker(
+      markerId: const MarkerId('_currentLocation'),
+      icon: BitmapDescriptor.defaultMarker,
+      position: pGooglePlex,
     ));
     return markers;
   }

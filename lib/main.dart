@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'CategoryDetailsPage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +20,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => const HomePage(),
         '/categoryDetails': (context) => const CategoryDetailsPage(
               selectedCity: '',
-              selectedCategory: '',
             ),
       },
     );
@@ -54,13 +55,12 @@ class _HomePageState extends State<HomePage> {
       selectedCity = city;
       // Call your function to fetch transport options for the selected city
       fetchTransportOptions(city);
-      // Navigate to the CityDetailsPage with the selected city
+      // Navigate to the CategoryDetailsPage with the selected city
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => CategoryDetailsPage(
             selectedCity: selectedCity,
-            selectedCategory: '',
           ),
         ),
       );
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
