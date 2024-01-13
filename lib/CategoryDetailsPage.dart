@@ -1,6 +1,26 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
+
+void main() async {
+  await dotenv.load();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'My App',
+      home: CategoryDetailsPage(
+        selectedCity: 'YourCity',
+        selectedCategory: 'YourCategory',
+      ),
+    );
+  }
+}
 
 class CategoryDetailsPage extends StatefulWidget {
   final String selectedCity;
@@ -50,7 +70,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
             future: categoryDetails,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -85,16 +105,17 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
   }
 
   Future<String> fetchCategoryDetails() async {
-    const apiKey =
-        'https://outpost.mapmyindia.com/api/security/oauth/token?grant_type=client_credentials&client_id=96dHZVzsAuvf5wbBfJhiNCAvJQKTv5YcP8wmMNLOMD1buNYOykOg4sqvywNZ21rzGVQGkmpzk580aWvsxvaFkw==&client_secret=lrFxI-iSEg8rCBF28zRZqrFzvMNvqIWPtlJ2OeSfQEfQudKlG__LjpVRRSdVYmNWOARpRCiMW4KauDsCxBkmrIruPjQ61pAs';
+    final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    final apiKey = dotenv.env['GOOGLE_MAPS_API_KEY'];
     final apiUrl =
-        'https://atlas.mapmyindia.com/api/places/geocode?address=${widget.selectedCategory}&api_key=$apiKey';
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.longitude}&key=$apiKey';
 
     final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
       final decodedData = json.decode(response.body);
-      final details = decodedData['suggestedLocations'][0]['placeAddress'];
+      final details = decodedData['results'][0]['formatted_address'];
       return details;
     } else {
       throw Exception('Failed to load category details');
