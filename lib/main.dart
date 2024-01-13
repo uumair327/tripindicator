@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'CityDetailsPage.dart';
+import 'CategoryDetailsPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,8 +16,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
-        '/categoryDetails': (context) => const CityDetailsPage(
+        '/categoryDetails': (context) => const CategoryDetailsPage(
               selectedCity: '',
+              selectedCategory: '',
             ),
       },
     );
