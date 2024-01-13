@@ -103,7 +103,30 @@ class LocationSelectionPage extends StatelessWidget {
           case 'Mumbai':
             switch (category) {
               case 'Beaches':
-                return ['Juhu Beach', 'Arnala Beach', 'Kelwe- Bordi'];
+                return [
+                  'Juhu Beach',
+                  'Arnala Beach',
+                  'Kelwe- Bordi',
+                  'Madh Island - Aksa',
+                  'Marve and Gorai and Manori',
+                  'Arnala beach',
+                  'Kelwe - Bordi',
+                  'Mandwa and Kihim',
+                  'Alibag- Kihim-Kashid-Mandwa-Varsoli- Nandgaon',
+                  'Dahanu',
+                  'Diveagar beach',
+                  'Harihareshwar',
+                  'Hedvi Beach - Guhagar',
+                  'Ganapatipule',
+                  'Velneshwar',
+                  'Vengurla Malvan',
+                  'Tarkarli',
+                  'HarshaVardhan - Mahad',
+                  'Are-Ware Beach',
+                  'Ganeshgule Beach',
+                  'Samindar Beach - Rajapur',
+                  'Damman - Davika - Vapi',
+                ];
               case 'Hill Station':
                 return ['Matheran', 'Lonavala', 'Mahabaleshwar'];
               case 'Waterfalls':
