@@ -58,7 +58,10 @@ class _HomePageState extends State<HomePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CityDetailsPage(selectedCity: selectedCity),
+          builder: (context) => CategoryDetailsPage(
+            selectedCity: selectedCity,
+            selectedCategory: '',
+          ),
         ),
       );
     });
