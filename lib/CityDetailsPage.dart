@@ -29,63 +29,38 @@ class CityDetailsPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    navigateToCategoryPage(context, 'Beaches');
-                  },
-                  child: const Text(
-                    'Beaches',
-                    style: TextStyle(color: Colors.black), // Black text color
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    primary: Colors.white, // Use white color for the button
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    navigateToCategoryPage(context, 'Hill Station');
-                  },
-                  child: const Text(
-                    'Hill Station',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    primary: Colors.white,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    navigateToCategoryPage(context, 'Waterfalls');
-                  },
-                  child: const Text(
-                    'Waterfalls',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    primary: Colors.white,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    navigateToCategoryPage(context, 'Forts');
-                  },
-                  child: const Text(
-                    'Forts',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    primary: Colors.white,
-                  ),
-                ),
+                buildElevatedButton(context, 'Beaches'),
+                buildElevatedButton(context, 'Hill Station'),
+                buildElevatedButton(context, 'Waterfalls'),
+                buildElevatedButton(context, 'Forts'),
                 // Add more buttons for other categories
                 // ...
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  ElevatedButton buildElevatedButton(BuildContext context, String label) {
+    return ElevatedButton(
+      onPressed: () {
+        navigateToCategoryPage(context, label);
+      },
+      child: Text(
+        label,
+        style: const TextStyle(color: Colors.black), // Black text color
+      ),
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(const Size(double.infinity, 50)),
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.hovered)) {
+              return Colors.blue.withOpacity(0.8); // Change color on hover
+            }
+            return Colors.white; // Default color
+          },
         ),
       ),
     );
