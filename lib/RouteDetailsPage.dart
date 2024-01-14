@@ -28,9 +28,6 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
   LatLng? sourceLocation;
   LatLng? destinationLocation;
 
-  // Add your desired default coordinates for the GooglePlex location
-  LatLng get pGooglePlex => LatLng(37.4220, -122.0841);
-
   @override
   void initState() {
     super.initState();
@@ -89,7 +86,7 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
                 initialCameraPosition: CameraPosition(
-                  target: pGooglePlex,
+                  target: sourceLocation ?? LatLng(0, 0),
                   zoom: 13,
                 ),
                 markers: _createMarkers(),
@@ -120,12 +117,12 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       markerId: const MarkerId('destinationMarker'),
       position: destinationLocation!,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      infoWindow: const InfoWindow(title: 'Destination'),
+      infoWindow: InfoWindow(title: widget.selectedLocation),
     ));
     markers.add(Marker(
       markerId: const MarkerId('_currentLocation'),
       icon: BitmapDescriptor.defaultMarker,
-      position: pGooglePlex,
+      position: sourceLocation ?? LatLng(0, 0),
     ));
     return markers;
   }

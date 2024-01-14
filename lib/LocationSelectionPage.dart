@@ -14,7 +14,6 @@ class LocationSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // You can dynamically fetch locations based on the selectedCategory here
     List<String> locations =
         getLocationsForCategory(selectedCategory, selectedCity);
 
@@ -128,34 +127,134 @@ class LocationSelectionPage extends StatelessWidget {
                   'Damman - Davika - Vapi',
                 ];
               case 'Hill Station':
-                return ['Matheran', 'Lonavala', 'Mahabaleshwar'];
+                return [
+                  'Matheran',
+                  'Lonavala',
+                  'Mahabaleshwar',
+                  'Bhandardara',
+                  'Jawhar',
+                  'Panchgani',
+                  'Mahabaleshwar',
+                  'Panhala',
+                  'Toranmal',
+                  'Amboli - Sawantwadi',
+                  'Chikhaldara',
+                ];
               case 'Waterfalls':
                 return [
                   'Dudhsagar Waterfall',
                   'Bhivpuri Waterfall',
-                  'Kune Falls'
+                  'Kune Falls',
+                  'Umbrella/ Randha',
+                  'Dabosa Waterfalls',
+                  'Pallu Waterfalls',
+                  'Malshej Ghats',
+                  'Tiger Valley',
+                  'Zenith Falls',
+                  'Bhivpuri Falls',
+                  'Bhilavle Waterfalls',
+                  'Khargahr Falls',
+                  'Palaspe Dam/Nishiland',
+                  'Sagar Falls',
+                  'Chinvoti/Mahableshwar',
                 ];
               case 'Forts':
-                return ['Raigad Fort', 'Pratapgad Fort', 'Sinhagad Fort'];
+                return [
+                  'Raigad Fort',
+                  'Pratapgad Fort',
+                  'Sinhagad Fort',
+                  'Vasai',
+                  'Lohagarh',
+                  'Kolaba',
+                  'Murud-Janjira Fort',
+                  'Sinhagad',
+                  'Shivneri',
+                  'Tryambak or Brahmagath',
+                  'Mandangad Fort',
+                  'Raigarh',
+                  'Purandar',
+                  'Pratapgarh',
+                  'Suvarnadurg',
+                  'Samara-Ajinkyatara',
+                  'Ahmednagar',
+                  'Sindhudurg',
+                  'Devgiri',
+                  'Panhala',
+                  'Vijaydurg',
+                  'Gawilgarh',
+                  'Mahur',
+                  'Pauni',
+                  'Chandrapur',
+                  'Karnalla Fort',
+                  'Rajgad Fort',
+                  'Koraigad Fort',
+                ];
               case 'Monsoon Treks':
                 return [
                   'Rajmachi Trek',
                   'Kalsubai Trek',
-                  'Harishchandragad Trek'
+                  'Harishchandragad Trek',
+                  'Mount Kalsubai',
+                  'MTDC/ Golden Rest',
+                  'Malshej Ghats',
+                  'Vishranti / Woods',
+                  'Ayur Life',
+                  'Pinewoods Farms',
+                  'Satya Farms',
+                  'Tunnel Top',
+                  'Mount View',
+                  'Tudor Retreat',
+                  'Hans Adventure',
+                  'Pui Dam',
+                  'Mulshi Lake',
+                  'Grambhi Falls',
+                  'Farmlife',
+                  'Sagar-Pen',
+                  'Mahableshwar',
+                  'Valley view Cottage',
+                  'Raigad Ropeway',
+                  'Amboli Ghat',
+                  'Balang Farms',
+                  'Sajjan / Drushet',
                 ];
               case 'Sanctuaries':
                 return [
                   'Sanjay Gandhi National Park',
-                  'Karnala Bird Sanctuary',
-                  'Tungareshwar Wildlife Sanctuary'
+                  'Dajipur',
+                  'Chikhaldara',
+                  'Tipeshwar',
+                  'Bor Dam',
+                  'The Pench National Park',
+                  'Tadoba National Park',
+                  'Nagzira',
+                  'Navegaon',
+                  'Bhamragarh',
+                  'Chaprala',
                 ];
               case 'Caves':
-                return ['Elephanta Caves', 'Kanheri Caves', 'Karla Caves'];
+                return [
+                  'Elephanta',
+                  'Ellora',
+                  'Pitalkhora',
+                  'Ajanta',
+                  'Lonad Caves - Bhiwandi',
+                  'Bedse - Bhaja -Karla',
+                  'Palton- Kondana Caves - Pune or Karjat',
+                  'Kuna Caves - Roha',
+                  'Tilsa Caves - Wada',
+                ];
               case 'Jungle':
                 return [
-                  'Tadoba Andhari Tiger Reserve',
-                  'Nagzira Wildlife Sanctuary',
-                  'Koyna Wildlife Sanctuary'
+                  'Melghat Forest - Aravati',
+                  'Gautela Forest - Aurangabad',
+                  'National Park - Borivili',
+                  'Murud Forest - Kashid',
+                  'Dajipur Forest - Kolaphur',
+                  'Tiger Path - Mahablesar',
+                  'Tiger Reserve - Panhala',
+                  'Amboli Ghats - Ratnagiri',
+                  'Dadra Nagar Haveli - Silvassa',
+                  'Vigramgad - Wada',
                 ];
               case 'Safari':
                 return [
@@ -165,36 +264,200 @@ class LocationSelectionPage extends StatelessWidget {
                 ];
               case 'Shrines or temples':
                 return [
-                  'Siddhivinayak Temple',
-                  'Mumba Devi Temple',
-                  'Mahalakshmi Temple'
+                  'Haji Ali',
+                  'Titwala',
+                  'Khopoli',
+                  'Dehu',
+                  'Alandi',
+                  'Anwar Temple',
+                  'Nashik',
+                  'Trimbakeshwar',
+                  'Jejuri',
+                  'Bhimashankar',
+                  'Shirdi',
+                  'Meherabad',
+                  'Khuldabad',
+                  'Mahalaxmi Kolhapur',
+                  'Sindkhed Raja',
+                  'Shegaon',
+                  'Nanded',
+                  'Wardha',
+                  'Durgadevi Temple - Guhagar',
+                  'Ashtavinayak',
                 ];
               case 'Dams':
-                return ['Bhatsa Dam', 'Vihar Lake', 'Tansa Lake'];
+                return [
+                  'Shantisagar',
+                  'Bharve Dam',
+                  'Wilson Dam',
+                  'Karjat-Farmlife',
+                  'Pui Dam',
+                  'Bhushi - Valvan Dam',
+                  'Farm Life',
+                ];
               case 'Lakes':
-                return ['Powai Lake', 'Vihar Lake', 'Tulsi Lake'];
+                return [
+                  'Lonar crater lake - Buldhana',
+                  'Aruthur Lake - Bhandara',
+                  'Mulshi Lake - Lonavla',
+                  'Tungarli Lake - Lonavla',
+                  'Venna Lake - Mahableshwar',
+                  'Tansa lake - Manaor',
+                  'Vaitrana Lake - Manor',
+                  'Charlotte Lake - Matheran',
+                  'Pond House - Neral',
+                  'Devekop Lake - Palghar',
+                  'Gadeshwar lake - Panvel',
+                  'Harishgiri Lake - Shahad',
+                ];
               case 'Cottages With Pool':
                 return [
-                  'Igatpuri Cottages',
-                  'Karjat Cottages',
-                  'Lavasa Cottages'
+                  'Shanti Sagar - Ambarnath',
+                  'Manisha - Mud Island',
+                  'Sagufauli - Murbad',
+                  'Kosdauikar - Panvel',
+                  'Raigad Resorts AC - Panvel',
+                  'Private Cottage - Virar',
                 ];
               case 'Farmhouse':
                 return [
-                  'Karjat Farmhouse',
-                  'Alibaug Farmhouse',
-                  'Igatpuri Farmhouse'
+                  'Close',
+                  'Mello Adventure - Karjat',
+                  'Pinewoods- Dr.Hegde - Karjat',
+                  'Rivergate - Karjat',
+                  'River Touch - Karjat',
+                  'Tudor Retreat - Khopoli',
+                  'Omkar Farms - Murbad',
+                  'ShagunaPond House - Neral',
+                  'FarmLife - Neral',
+                  'Raigad Resorts - Panvel',
+                  'Harishgiri Lake Resort - Shahad',
+                  'Vishwasrao Farms - Titwala',
+                  'Balang Farms - Virar',
+                  'Kalyani Village - Virar',
+                  'Satya farms- karjat',
                 ];
               case 'Fishing Rivers':
-                return ['Bhatsa River', 'Ulhas River', 'Vaitarna River'];
+                return [
+                  'Ulhas River - Ambarnath',
+                  'Khadavli - Kalyan',
+                  'Rivergate / River Touch - Karjat',
+                  'Farmlife- Sanaman - Neral',
+                  'Nandavan - Ulhasnagar',
+                  'Kalyani Village - Virar',
+                ];
               case 'Resorts':
                 return [
-                  'Lonavala Resorts',
-                  'Alibaug Resorts',
-                  'Khandala Resorts'
+                  'Alibaug Sea View Resort',
+                  'Big Splash - Alibaug',
+                  'Cottage with Pool - Ambarnath',
+                  'Shanti Sagar - Ambarnath',
+                  'Vishwasrao Farms - Ambivili',
+                  'Rainy Resort - Badlapur',
+                  'Sun Bath - Badlapur',
+                  'Anandvan-MTDC - Bhandra',
+                  'Children Camp site - Bhiwandi',
+                  'Husanna Wadi - Bhiwandi',
+                  'River View - Chipluin',
+                  'Abishek Beach - Ganptipule',
+                  'Golden Resorts - Igatpuri',
+                  'Manas - Igatpuri',
+                  'Ashwin - Igatpuri',
+                  'Sunset Resort - Jawahar',
+                  'Riverwind - Kalyan',
+                  'Ashirward Farms - Karjat',
+                  'Ayur Village - Karjat',
+                  'Modi Resorts - Karjat',
+                  'Pinewoods Farms - Karjat',
+                  'Prakurti Farms - Karjat',
+                  'River Gate - Karjat',
+                  'Roma Gardens - Karjat',
+                  'Satya Farms - Karjat',
+                  'Sohum Resorts - Karjat',
+                  'Suman Farms - Karjat',
+                  'Mello Adventure - Karjat',
+                  'Prakurti - Kashid',
+                  'Sandpiper - Kashid',
+                  'Bide Resorts - Khandala',
+                  'Cloud 9 - Khandala',
+                  'Kumar Resorts - Khandala',
+                  'Sai Inn-Pvt Cottages - Khim',
+                  'Aayush Resorts - Khopoli',
+                  'Durushet - Khopoli',
+                  'Sajan - Khopoli',
+                  'Jai Hills Resorts - Khopoli',
+                  'Mount View - Khopoli',
+                  'NishiLand - Khopoli',
+                  'Raigad Resorts - Khopoli',
+                  'Tunnel Top - Khopoli',
+                  'Uncles Kitchen - Khopoli',
+                  'White House - Khopoli',
+                  'Yudor Retreat - Khopoli',
+                  'Doctors Farms - Kolad',
+                  'Hans Adventure-Piu - Kolad',
+                  'Lion Den - Lonavla',
+                  'Upper Deck - Lonavla',
+                  'Flamingo - Malshej',
+                  'Countryside - Mandwa',
+                  'Onkar Farms - Murbad',
+                  'Sadafuli Farms - Murbad',
+                  'Petron Highway - Nagothane',
+                  'Farm Life - Neral',
+                  'Pond House - Neral',
+                  'River Touch Farms - Neral',
+                  'Summer Hill - Neral',
+                  'Forest House - Panvel',
+                  'Kamath Daba - Panvel',
+                  'Rishi - Panvel',
+                  'Woods - Panvel',
+                  'Shalom Resorts - Panvel',
+                  'Vishranti Resorts - Panvel',
+                  'Raigad Ropeway - Raigad',
+                  'Harshgiri - Shahad',
+                  'Shangrila - Shahad',
+                  'Suraj Waterpark - Thane',
+                  'Tikujiniwadi - Thane',
+                  'Yeeor Hills - Thane',
+                  'Golden Valley - Thane God',
+                  'Ammu River Resort - Ulhasnagar',
+                  'Sagar Kinara - Varsoli',
+                  'Anand - Arnala',
+                  'C Beach - Arnala',
+                  'Royal Garden - Godhbunder',
+                  'Farrys Beach Resort - Gorai',
+                  'Silent Hill Resort - Manor',
+                  'Silvermiles - Manor',
+                  'Domnica-Manoribel - Manori',
+                  'Esselworld Water K - Marve',
+                  'Green Village - Marve',
+                  'Bagca - Marve',
+                  'Ballirina Beach view - MudhIsland',
+                  'Amrutbaug - Mudisland',
+                  'Cottage - MudIsland',
+                  'Saina Resorts - Mudlsland',
+                  'Pali Beach Resort - Uttan',
+                  'U.Tang - Uttan',
+                  'Maxwell - Uttan',
+                  'Ultimate Paradise - Uttan',
+                  'K.T Hills - Vasai',
+                  'Balang Farms - Virar',
+                  'Cottage with S.Pool - Virar',
+                  'Island Club - Virar',
+                  'Kalyani Village - Virar',
+                  'Krishna Gardens - Virar',
+                  'Pawan Resorts - Virar',
+                  'Sajan Tree Top - Wada',
                 ];
               case 'Cities and Villages To Visit':
-                return ['Elephanta Island', 'Alibaug', 'Khandala'];
+                return [
+                  'Mumbai',
+                  'Pune ',
+                  'Nashik',
+                  'Dapoli ',
+                  'Aurangabad',
+                  'Kolhapur',
+                  'Nanded',
+                ];
               case 'Western Railway Heritage Gallery':
                 return [
                   'Heritage Gallery 1',
