@@ -34,15 +34,45 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
     sourceController = TextEditingController(text: widget.defaultSource);
     destinationController =
         TextEditingController(text: widget.defaultDestination);
-    sourceLocation = const LatLng(
-        37.7749, -122.4194); // Default coordinates for source (San Francisco)
-    destinationLocation = getDestinationCoordinates(widget.selectedLocation);
+    sourceLocation = getDestinationCoordinates(widget.selectedLocation);
+    destinationLocation = getBeachCoordinates('Juhu Beach');
   }
 
   LatLng getDestinationCoordinates(String location) {
-    // Implement logic to fetch real destination coordinates based on the selected location
-    // For simplicity, I'm returning default coordinates for demonstration
-    return const LatLng(37.7749, -122.4194);
+    switch (widget.selectedCategory) {
+      case 'Beaches':
+        return getBeachCoordinates(location);
+      case 'Hill Station':
+        return getHillStationCoordinates(location);
+      default:
+        return const LatLng(0, 0);
+    }
+  }
+
+  LatLng getBeachCoordinates(String location) {
+    switch (location) {
+      case 'Juhu Beach':
+        return const LatLng(19.1075, 72.8263);
+      case 'Arnala Beach':
+        return const LatLng(19.4522, 72.7479);
+      case 'Kelwe- Bordi':
+        return const LatLng(19.6113, 72.7299);
+      default:
+        return const LatLng(0, 0);
+    }
+  }
+
+  LatLng getHillStationCoordinates(String location) {
+    switch (location) {
+      case 'Matheran':
+        return const LatLng(18.9865, 73.2656);
+      case 'Lonavala':
+        return const LatLng(18.7549, 73.4057);
+      case 'Mahabaleshwar':
+        return const LatLng(17.9239, 73.6584);
+      default:
+        return const LatLng(0, 0);
+    }
   }
 
   @override
@@ -61,22 +91,16 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
               decoration: const InputDecoration(labelText: 'Source'),
               onChanged: (value) {
                 setState(() {
-                  // Update sourceLocation based on user input or selection
-                  // You may use a location picker or another method to set the location
-                  // For simplicity, I'm using default coordinates for San Francisco
                   sourceLocation = const LatLng(37.7749, -122.4194);
                 });
               },
             ),
             TextField(
               controller: destinationController,
-              decoration: const InputDecoration(labelText: 'Destination'),
+              decoration: const InputDecoration(labelText: 'Juhu'),
               onChanged: (value) {
                 setState(() {
-                  // Update destinationLocation based on user input or selection
-                  // You may use a location picker or another method to set the location
-                  // For simplicity, I'm using default coordinates for San Francisco
-                  destinationLocation = const LatLng(37.7749, -122.4194);
+                  destinationLocation = getBeachCoordinates(value);
                 });
               },
             ),
@@ -99,6 +123,16 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
               },
               child: const Text('Get Routes'),
             ),
+            const SizedBox(height: 16.0),
+            _buildRouteDescription(
+              'Route 1',
+              [
+                'Train (Central Railway): Kalyan to Dadar',
+                'Train (Western Railway): Dadar to Santacruz',
+                'Bus (BEST): Santacruz to Juhu Beach',
+              ],
+            ),
+            // Add additional routes if needed...
           ],
         ),
       ),
@@ -137,5 +171,29 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
     // Implement logic to fetch routes and prices
     // Update UI accordingly
     // ...
+  }
+
+  Widget _buildRouteDescription(String routeName, List<String> steps) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          routeName,
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        for (String step in steps)
+          Text(
+            '• $step',
+            style: TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+        const SizedBox(height: 16.0),
+      ],
+    );
   }
 }
