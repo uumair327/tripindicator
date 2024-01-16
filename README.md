@@ -1,4 +1,4 @@
-# myapp
+# trip indicator
 
 A new Flutter project.
 
